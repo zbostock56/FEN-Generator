@@ -26,24 +26,27 @@ def function():
     while counter < len(linearray):
         line = linearray[counter]
         zeroCounter = 0
-        for i in range(0, len(line)):
+        i = 0
+        while i < len(line):
             # If the part of the string is not a zero, add it to the return string
             if (line[i] != "0" and line[i] != "\n"):
                 fenString += line[i]
             # If the part of the string is a zero, count all of them until there are not any more
+            # BUG: Misses adding the piece right after the end of a run of zeros
             elif (line[i] == "0"):
                 while zeroCounter + i < len(line) and line[i + zeroCounter] == "0":
-                    # BUG: Currently prints 87654321 rather than just 8
                     zeroCounter += 1
-                    print(zeroCounter)
                 fenString += str(zeroCounter)
                 i += zeroCounter
+                if (i >= len(line) - 1):
+                    fenString += "/"
                 zeroCounter = 0
             else:
                 if (counter != 7):
                     fenString += "/"
+            i += 1
         counter += 1
-    print(fenString)     
-                
+    print(fenString)
+
+
 function()
-   
