@@ -22,11 +22,13 @@
 # RNBQKBNR
 
 # Next Move Format:
-# After pieces: "Black" or "White" indicates next move
+# After pieces format, "Black" or "White" indicates next move
 
 # Castling Rights Format:
-# After next move descriptor, 'K' 'Q' 'k' 'q' indicates which side has not castled
-# e.g. ~ Kkq : King side of white, King and Queen side of black all have castling rights
+# After next move, 'K' 'Q' 'k' 'q' indicates which side has not castled
+# White is listed first, then black
+# e.g. ~ Kkq : King side of white, King and Queen side of black all have castling right
+# -'s are used to denote if black or white does not have any castling rights
 
 # Halfmove Clock
 # After Castling Rights descriptor, some number up to 50 moves, referring to the
@@ -47,6 +49,8 @@ def pieceFen():
     except:
         print("No such file exists")
     # read all lines from file
+    global fenString
+    global linearray
     linearray = fp.readlines()
     counter = 0
     while counter < 8:
@@ -70,10 +74,30 @@ def pieceFen():
                 if (counter != 7):
                     fenString += "/"
                 i += 1    
-        counter += 1
-    print(fenString)
+        counter += 1  
+def nextMoveFen():
+    global fenString
+    global linearray
+    if (len(linearray) > 7):
+        fenString += " " + linearray[8].strip()
 def castlingFen():
-    if (len(linearray) != 0):
-        print()    
-
+    global fenString
+    global linearray
+    if (len(linearray) > 8):
+        fenString += " " + linearray[9].strip()
+def halfmoveClockFen():
+    global fenString
+    global linearray
+    if (len(linearray) > 9):
+        fenString += " " + linearray[10].strip()
+def moveCounterFen():
+    global fenString
+    global linearray
+    if (len(linearray) > 10):
+        fenString += " " + linearray[11].strip()        
 pieceFen()
+nextMoveFen()
+castlingFen()
+halfmoveClockFen()
+moveCounterFen()
+print(fenString)

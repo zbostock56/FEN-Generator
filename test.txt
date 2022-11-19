@@ -6,3 +6,7 @@ pppppppp
 00000000
 PPPPPPPP
 RNBQKBNR
+w
+KQkq
+0
+0
